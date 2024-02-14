@@ -1,19 +1,20 @@
--- 코드를 입력하세요
-SELECT DATE_FORMAT(sales_date, '%Y-%m-%d') AS sales_date
-    , product_id
-    , user_id
-    , sales_amount
-FROM ONLINE_SALE 
-WHERE sales_date LIKE '2022-03-%'
+-- 일단 두 테이블 통합시 수평으로 추가해야함 -> UNION
+-- 완성된것을 합치는 거니까 각각 2022년 3월 추가해줘야함 (온라인 데이터 + 온프라인 데이터)
+-- DATE 타입은 항상 출력시 유의하기! 
+SELECT DATE_FORMAT(SALES_DATE, '%Y-%m-%d') AS SALES_DATE
+    , PRODUCT_ID
+    , USER_ID
+    , SALES_AMOUNT
+FROM ONLINE_SALE
+WHERE SALES_DATE LIKE '2022-03%'
 
 UNION ALL
 
-SELECT DATE_FORMAT(sales_date, '%Y-%m-%d') AS sales_date
-    , product_id
-    , NULL AS user_id
-    , sales_amount
-FROM OFFLINE_SALE 
-WHERE YEAR(sales_date) = '2022'
-AND MONTH(sales_date) = '03'
+SELECT DATE_FORMAT(SALES_DATE, '%Y-%m-%d') AS SALES_DATE
+    , PRODUCT_ID
+    , NULL AS USER_ID
+    , SALES_AMOUNT
+FROM OFFLINE_SALE
+WHERE SALES_DATE LIKE '2022-03%'
 
-ORDER BY sales_date, product_id, user_id;
+ORDER BY SALES_DATE, PRODUCT_ID, USER_ID;
