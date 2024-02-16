@@ -1,6 +1,5 @@
 -- 코드를 입력하세요
 -- 두 테이블 통합시? 열 추가로 합칠 것 -> UNION 아닌 JOIN 
--- 조건? 키? 
 SELECT B.TITLE
     , B.BOARD_ID
     , R.REPLY_ID
