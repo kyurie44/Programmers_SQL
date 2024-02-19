@@ -1,27 +1,15 @@
 # -- 코드를 입력하세요
-# SELECT A.FOOD_TYPE
-#     , A.FAVORITES
-# FROM (
-#        SELECT FOOD_TYPE
-#            , MAX(FAVORITES) AS FAVORITES
-#        FROM REST_INFO
-#        GROUP BY FOOD_TYPE
-#      ) AS A
-# JOIN REST_INFO AS B
-# USING FOOD_TYPE, FAVORITES 
-# # ORDER BY FOOD_TYPE DESC;
-SELECT
-    FOOD_TYPE,
-    REST_ID,
-    REST_NAME,
-    FAVORITES
-FROM
-    REST_INFO ri1
-WHERE
-    FAVORITES = (
-        SELECT MAX(FAVORITES)
-        FROM REST_INFO ri2
-        WHERE ri1.FOOD_TYPE = ri2.FOOD_TYPE
-    )
-ORDER BY
-    FOOD_TYPE DESC;
+SELECT FOOD_TYPE
+    , REST_ID
+    , REST_NAME
+    , FAVORITES
+FROM REST_INFO 
+WHERE (FOOD_TYPE, FAVORITES) IN (
+                                SELECT FOOD_TYPE
+                                    , MAX(FAVORITES) AS FAVORITES
+                                FROM REST_INFO
+                                GROUP BY FOOD_TYPE
+                                )
+ORDER BY FOOD_TYPE DESC
+;
+     
