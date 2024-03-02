@@ -3,13 +3,10 @@
 SELECT CONCAT('/home/grep/src/', A.BOARD_ID, '/', B.FILE_ID, B.FILE_NAME, B.FILE_EXT) AS FILE_PATH
 FROM USED_GOODS_BOARD A
 JOIN USED_GOODS_FILE B USING (BOARD_ID)
-WHERE BOARD_ID = (
-                    SELECT BOARD_ID
-                    FROM USED_GOODS_BOARD 
-                    WHERE VIEWS = (
-                                    SELECT MAX(VIEWS)
-                                    FROM USED_GOODS_BOARD
-                                  )
+WHERE VIEWS = (
+                    SELECT MAX(VIEWS)
+                    FROM USED_GOODS_BOARD
+                                
                  )
 ORDER BY B.FILE_ID DESC
 ;
