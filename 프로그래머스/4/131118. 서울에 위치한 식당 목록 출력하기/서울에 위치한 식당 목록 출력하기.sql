@@ -1,13 +1,20 @@
--- 코드를 입력하세요
-SELECT I.REST_ID
-    , I.REST_NAME
-    , I.FOOD_TYPE
-    , I.FAVORITES
-    , I.ADDRESS
-    , ROUND(AVG(R.REVIEW_SCORE), 2) AS SCORE
-FROM REST_INFO AS I
-JOIN REST_REVIEW AS R
-ON I.REST_ID = R.REST_ID
-WHERE I.ADDRESS LIKE '서울%'
-GROUP BY REST_ID     # 식당별 평균점수 때문  
-ORDER BY SCORE DESC, I.FAVORITES DESC;
+select REST_ID
+     , REST_NAME
+     , FOOD_TYPE
+     , FAVORITES
+     , ADDRESS
+     # , b.review_score, b.review_id
+     , round(avg(b.REVIEW_SCORE), 2) as SCORE
+from REST_INFO as a
+join REST_REVIEW as b
+using (rest_id)
+where a.address like '서울%'
+group by rest_id
+order by score desc, favorites desc;
+
+# select *
+# from rest_review
+# where rest_id in (00001, 00005, 0008)
+
+# select *
+# from rest_info  #서울시, 서울특별시도 존재 
