@@ -1,16 +1,12 @@
--- 코드를 입력하세요
-SELECT AUTHOR_ID
-    , AUTHOR_NAME
-    , CATEGORY
-    , SUM(SALES * PRICE) AS TOTAL_SALES     #같은 작가에 여러 카테고리 있음. 그 카테고리별 판매량 * 판매가 한거를 총 더해야하는 것. 
-FROM (
-    SELECT BOOK_ID, SALES
-    FROM BOOK_SALES 
-    WHERE DATE_FORMAT(SALES_DATE, '%Y-%m-%d') LIKE '2022-01%'
-    ) A
-JOIN BOOK B USING (BOOK_ID)
-JOIN AUTHOR C USING (AUTHOR_ID)
-
-GROUP BY AUTHOR_ID, CATEGORY
-ORDER BY AUTHOR_ID, CATEGORY DESC
-;
+select b.AUTHOR_ID
+     , c.AUTHOR_NAME
+     , b.CATEGORY
+     , sum(a.sales * b.price) as TOTAL_SALES
+from BOOK_SALES a
+join BOOK b
+    using (book_id)
+join AUTHOR c
+    using (author_id)
+where a.SALES_DATE like '2022-01%'
+group by b.author_id, b.category
+order by b.author_id, b.category desc
