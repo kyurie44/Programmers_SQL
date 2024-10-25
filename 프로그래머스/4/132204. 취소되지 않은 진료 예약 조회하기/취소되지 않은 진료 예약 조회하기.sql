@@ -1,16 +1,15 @@
--- 코드를 입력하세요
-SELECT A.APNT_NO
-    , B.PT_NAME
-    , A.PT_NO
-    , A.MCDP_CD
-    , C.DR_NAME
-    , A.APNT_YMD
-FROM APPOINTMENT A
-JOIN PATIENT B USING (PT_NO)
-JOIN DOCTOR C ON A.MDDR_ID = C.DR_ID
-# WHERE DATE_FORMAT(APNT_YMD, '%Y-%m-%d') = '2022-04-13'
-WHERE APNT_YMD LIKE '2022-04-13%'  
-AND A.APNT_CNCL_YN = 'N'
-AND A.MCDP_CD = 'CS'
-ORDER BY A.APNT_YMD
-;
+select a.APNT_NO
+     , b.PT_NAME
+     , a.PT_NO
+     , a.MCDP_CD
+     , c. DR_NAME
+     , a.APNT_YMD
+from APPOINTMENT a
+join PATIENT     b
+    using (PT_NO)
+join DOCTOR      c
+    on a.MDDR_ID = c.DR_ID
+where a.APNT_YMD like '2022-04-13%'
+and a.APNT_CNCL_YN = 'N'
+and a.MCDP_CD = 'CS'
+order by a.APNT_YMD
