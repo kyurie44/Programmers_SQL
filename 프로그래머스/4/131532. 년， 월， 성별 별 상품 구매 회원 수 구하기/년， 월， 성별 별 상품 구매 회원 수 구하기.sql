@@ -1,12 +1,11 @@
--- 코드를 입력하세요
-SELECT YEAR(O.SALES_DATE) YEAR
-    , MONTH(O.SALES_DATE) MONTH
-    , U.GENDER GENDER
-    , COUNT(DISTINCT U.USER_ID) USERS
-FROM USER_INFO  U
-JOIN ONLINE_SALE O
-USING (USER_ID)
-WHERE U.GENDER IS NOT NULL
-GROUP BY YEAR, MONTH, GENDER
-ORDER BY YEAR, MONTH, GENDER
-;
+select year(a.SALES_DATE) AS YEAR
+     , month(a.SALES_DATE) AS MONTH
+     , b.gender AS GENDER
+     , count(distinct user_id) AS USERS
+from ONLINE_SALE a
+join USER_INFO b
+    using (user_id)
+group by year(a.SALES_DATE)
+       , month(a.SALES_DATE)
+       , b.gender
+having gender is not null
